@@ -82,9 +82,14 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 	if (bahaya(fpath))
 	{
 		char newname[500];
+		char command[500] = "chmod 000 ";
+
 		strcat(newname, fpath);
 		strcat(newname,".ditandai");
 		rename(fpath, newname);
+
+		strcat(command, newname);
+		system(command);
 	}
 
 	int res = 0;
