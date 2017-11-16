@@ -8,7 +8,7 @@
 #include <errno.h>
 #include <sys/time.h>
 
-static const char *dirpath = "/home/administrator/Documents";
+static const char *dirpath = "/home/Symefa/Documents";
 
 static int xmp_getattr(const char *path, struct stat *stbuf)
 {
@@ -58,6 +58,16 @@ static int xmp_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 	return 0;
 }
 
+int bahaya(char fpath)
+{
+	if(strstr(fpath,".pdf") != NULL || strstr(fpath,".txt") != NULL || strstr(fpath,".doc") != NULL)
+	{
+		printf("Path %s\n merupakan file bahaya!", fpath);
+		return 1;
+	}
+	return 0;
+}
+
 static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 		    struct fuse_file_info *fi)
 {
@@ -68,8 +78,24 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 		sprintf(fpath,"%s",path);
 	}
 	else sprintf(fpath, "%s%s",dirpath,path);
+
+	if (bahaya(fpath))
+	{
+		char newname[500];
+		char newpath[500] = " /home/Symefa/Documents/Rahasia/";
+		char command[500] = "mv -i ";
+
+		strcat(newname, fpath);
+		strcat(newname,".ditandai");
+		rename(fpath, newname);
+		strcat(command, newname);
+		strcat(command, newpath);
+		system(command);
+		return -1;
+	}
+
 	int res = 0;
-  int fd = 0 ;
+  	int fd = 0 ;
 
 	(void) fi;
 	fd = open(fpath, O_RDONLY);
