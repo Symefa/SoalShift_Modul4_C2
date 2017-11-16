@@ -62,6 +62,7 @@ int bahaya(char fpath)
 {
 	if(strstr(fpath,".pdf") != NULL || strstr(fpath,".txt") != NULL || strstr(fpath,".doc") != NULL)
 	{
+		printf("Path %s\n merupakan file bahaya!", fpath);
 		return 1;
 	}
 	return 0;
@@ -81,7 +82,9 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 	if (bahaya(fpath))
 	{
 		char newname[500];
-		
+		strcat(newname, fpath);
+		strcat(newname,".ditandai");
+		rename(fpath, newname);
 	}
 
 	int res = 0;
