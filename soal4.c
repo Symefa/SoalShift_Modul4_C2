@@ -22,8 +22,8 @@
 #include <sys/xattr.h>
 #endif
 
-static const char *dirpath = "/home/khawari/Downloads/"; 	//JANGAN LUPA GANTI NAMA USER
-static const char *dir = "/home/khawari/Downloads/simpanan"; 	//JANGAN LUPA GANTI NAMA USER
+static const char *dirpath = "/home/aufawibowo/Downloads/"; 	//JANGAN LUPA GANTI NAMA USER
+static const char *dir = "/home/aufawibowo/Downloads/simpanan"; 	//JANGAN LUPA GANTI NAMA USER
 
 static int xmp_getattr(const char *path, struct stat *stbuf)
 {
