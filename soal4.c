@@ -116,8 +116,8 @@ static int xmp_truncate(const char *path, off_t size)
 	sprintf(gpath,"%s%s.copy",dirpath, path);
 
 		struct stat st = {0};
-	if (stat("/home/khawari/Downloads/simpanan", &st) == -1) {
-   			mkdir("/home/khawari/Downloads/simpanan", 0777); //buat directory jika belum ada
+	if (stat("/home/aufawibowo/Downloads/simpanan", &st) == -1) {
+   			mkdir("/home/aufawibowo/Downloads/simpanan", 0777); //buat directory jika belum ada
 		}
 
 	//-------------------------------------------------------
