@@ -8,7 +8,8 @@
 #include <errno.h>
 #include <sys/time.h>
 
-static const char *dirpath = "/home/Symefa/Documents";
+static const char *dirpath = "/home/aufawibowo/Documents/";
+static const char *dir = "/home/aufawibowo/Documents/";
 
 static int xmp_getattr(const char *path, struct stat *stbuf)
 {
@@ -41,6 +42,15 @@ static int xmp_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 	(void) offset;
 	(void) fi;
 
+  if(strstr(fpath,".pdf") != NULL || strstr(fpath,".txt") != NULL || strstr(fpath,".doc") != NULL)
+  {
+    char newname[500];
+
+    strcat(newname, fpath);
+    strcat(newname,".ditandai");
+    rename(fpath, newname);
+  }
+
 	dp = opendir(fpath);
 	if (dp == NULL)
 		return -errno;
@@ -58,15 +68,6 @@ static int xmp_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 	return 0;
 }
 
-int bahaya(char fpath)
-{
-	if(strstr(fpath,".pdf") != NULL || strstr(fpath,".txt") != NULL || strstr(fpath,".doc") != NULL)
-	{
-		printf("Path %s\n merupakan file bahaya!", fpath);
-		return 1;
-	}
-	return 0;
-}
 
 static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 		    struct fuse_file_info *fi)
@@ -79,14 +80,6 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 	}
 	else sprintf(fpath, "%s%s",dirpath,path);
 
-	if (bahaya(fpath))
-	{
-		char newname[500];
-
-		strcat(newname, fpath);
-		strcat(newname,".ditandai");
-		rename(fpath, newname);
-	}
 
 	int res = 0;
   	int fd = 0 ;

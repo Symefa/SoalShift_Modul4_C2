@@ -31,7 +31,7 @@ static int xmp_getattr(const char *path, struct stat *stbuf)
 {
 	int res;
 	char fpath[1000];
-
+	printf("getattr\n");
 	sprintf(fpath,"%s%s",dirpath, path);
 	res = lstat(fpath, stbuf);
 	if (res == -1)
@@ -50,7 +50,7 @@ static int xmp_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 	(void) fi;
 
 	char fpath[1000];
-
+	printf("readdir\n");
 	sprintf(fpath,"%s%s",dirpath, path);
 
 	dp = opendir(fpath);
@@ -104,7 +104,7 @@ static int xmp_truncate(const char *path, off_t size)
 	int res;
 
 	char fpath[1000],gpath[1000];
-
+	
 	sprintf(fpath,"%s%s",dirpath, path);
 
 //	strncpy(dir, dirpath, 	strlen(dirpath));

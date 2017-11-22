@@ -23,7 +23,7 @@
 #endif
 
 static const char *dirpath = "/home/aufawibowo/Downloads/"; 	//JANGAN LUPA GANTI NAMA USER
-static const char *dir = "/home/aufawibowo/Downloads/simpanan"; 	//JANGAN LUPA GANTI NAMA USER
+static const char *dir = "/home/aufawibowo/Downloads/"; 	//JANGAN LUPA GANTI NAMA USER
 
 static int xmp_getattr(const char *path, struct stat *stbuf)
 {
@@ -110,15 +110,15 @@ static int xmp_truncate(const char *path, off_t size)
 	sprintf(fpath,"%s%s",dirpath, path);
 
 	strncpy(dir, dirpath, 	strlen(dirpath));
-	strcat(dir, "simpanan/");
+	//strcat(dir, "simpanan/");
 
 
 	sprintf(gpath,"%s%s.copy",dirpath, path);
 
 		struct stat st = {0};
-	if (stat("/home/aufawibowo/Downloads/simpanan", &st) == -1) {
+	/*if (stat("/home/aufawibowo/Downloads/simpanan", &st) == -1) {
    			mkdir("/home/aufawibowo/Downloads/simpanan", 0777); //buat directory jika belum ada
-		}
+		}*/
 
 	//-------------------------------------------------------
     int files[2];
