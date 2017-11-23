@@ -8,8 +8,8 @@
 #include <errno.h>
 #include <sys/time.h>
 
-static const char *dirpath = "/home/aufawibowo/Documents/";
-static const char *dir = "/home/aufawibowo/Documents/";
+static const char *dirpath = "/home/hehe/";
+
 
 static int xmp_getattr(const char *path, struct stat *stbuf)
 {
@@ -42,14 +42,6 @@ static int xmp_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 	(void) offset;
 	(void) fi;
 
-  if(strstr(fpath,".pdf") != NULL || strstr(fpath,".txt") != NULL || strstr(fpath,".doc") != NULL)
-  {
-    char newname[500];
-
-    strcat(newname, fpath);
-    strcat(newname,".ditandai");
-    rename(fpath, newname);
-  }
 
 	dp = opendir(fpath);
 	if (dp == NULL)
@@ -72,7 +64,7 @@ static int xmp_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 		    struct fuse_file_info *fi)
 {
-  char fpath[1000];
+  	char fpath[1000];
 	if(strcmp(path,"/") == 0)
 	{
 		path=dirpath;
@@ -80,6 +72,16 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 	}
 	else sprintf(fpath, "%s%s",dirpath,path);
 
+	if(strstr(fpath,".pdf") != NULL || strstr(fpath,".txt") != NULL || strstr(fpath,".doc") != NULL)
+  	{
+  		int res;
+    	char newname[1000];
+
+    	sprintf(newname,"%s.ditandai", fpath);
+    	res = rename(fpath, newname);
+    	system("zenity --error --text=\"Terjadi Kesalahan! File berisi konten berbahaya.\n\" --title=\"Peringatan\"" );
+    	return -errno;
+  	}
 
 	int res = 0;
   	int fd = 0 ;
